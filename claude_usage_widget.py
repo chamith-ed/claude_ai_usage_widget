@@ -6,7 +6,7 @@ Shows claude.ai subscription usage (5h / 7d) in the taskbar.
 Auth: auto-detects ~/.claude/.credentials.json, or manual token entry.
 """
 
-__version__ = "2.0.0"
+__version__ = "2.0.1"
 
 import gi
 gi.require_version('Gtk', '3.0')
@@ -252,7 +252,6 @@ class ClaudeUsageApp:
                     GLib.idle_add(self._update_ui, data)
             except RateLimitError:
                 print("[claude-usage] Rate limited, backing off 10 min", file=sys.stderr)
-                GLib.idle_add(self._update_ui, None)
                 time.sleep(600)
                 continue
             except Exception as e:
